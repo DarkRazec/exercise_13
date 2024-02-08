@@ -1,5 +1,5 @@
 class Category:
-    """Класс для астракции 'Категория'"""
+    """Класс для абстракции 'Категория'"""
     __category_amount = []
 
     def __init__(self, name: str, desc: str, products: list):
