@@ -33,15 +33,24 @@ class Product:
     def price(self):
         self.__price = None
 
-    def get_count(self):
+    @property
+    def count(self):
         return self.__count
+
+    @count.setter
+    def count(self, new_count: float):
+        self.__count = new_count
+
+    @count.deleter
+    def count(self):
+        self.__count = None
 
     @classmethod
     def make_product(cls, name: str, desc: str, price: float, count: int):
         for instance in cls.__instances:
-            if name == instance.__name:
+            if name.lower() == instance.__name.lower():
                 instance.__count += count
-                if price > instance.__price:
+                if price > instance.price:
                     instance.__price = price
                 break
         else:

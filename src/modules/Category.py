@@ -20,14 +20,26 @@ class Category:
     def get_products(self):
         return self.__products
 
-    @property
-    def category_amount(self):
-        return self.__category_amount
+    @classmethod
+    def get_products_amount(cls):
+        return cls.__products_amount
+
+    @classmethod
+    def get_category_amount(cls):
+        return cls.__category_amount
 
     @property
     def products(self):
-        return [f"{product.get_name()}, {product.price} руб. Остаток: {product.get_count()} шт." for product in self.__products]
+        return [f"{product.get_name()}, {product.price} руб. Остаток: {product.count} шт." for product in self.__products]
 
-    def add_products(self, new_product: object):
-        self.__products.append(new_product)
-        Category.products_amount += 1
+    def add_products(self, new_product):
+        for product in self.__products:
+            if new_product.get_name().lower() == product.get_name().lower():
+                product.count += new_product.count
+                user_input = input('Сменить цену товара на новую? (Y/n) ')
+                if user_input.lower() in ('y', 'yes', 'да'):
+                    product.price = new_product.price
+                break
+        else:
+            self.__products.append(new_product)
+            Category.__products_amount += 1
