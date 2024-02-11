@@ -30,6 +30,12 @@ def test_delete_price(some_product):
     assert some_product.price is None
 
 
-def test_make_product(some_product):
-    new_prod = some_product.make_product('NOTBox', 'This is NOT the Box', 0, 0)
-    assert new_prod.get_name() == 'NOTBox'
+def test_make_product():
+    prod = Product('NOTBox', 'This is NOT the Box', 0, 4)
+    prod.make_product('NOTBox', 'This is NOT the Box', 2, 3)
+    assert prod.get_name() == 'NOTBox'
+    assert prod.price, prod.get_count() == (2, 7)
+    new_prod = prod.make_product('New Product', 'This is the new Product', 1, 1)
+    new_prod.make_product('New Product', 'This is the new Product', 0, 2)
+    assert new_prod.price, new_prod.get_count() == (1, 3)
+

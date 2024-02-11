@@ -1,10 +1,13 @@
 class Product:
     """Класс для абстракции 'Продукт'"""
+    __instances = []
+
     def __init__(self, name: str, desc: str, price: float, count: int):
         self.__name = name
         self.__desc = desc
         self.__price = price
         self.__count = count
+        Product.__instances.append(self)
 
     def get_name(self):
         return self.__name
@@ -33,6 +36,13 @@ class Product:
     def get_count(self):
         return self.__count
 
-    @staticmethod
-    def make_product(name: str, desc: str, price: float, count: int):
-        return Product(name, desc, price, count)
+    @classmethod
+    def make_product(cls, name: str, desc: str, price: float, count: int):
+        for instance in cls.__instances:
+            if name == instance.__name:
+                instance.__count += count
+                if price > instance.__price:
+                    instance.__price = price
+                break
+        else:
+            return cls(name, desc, price, count)
