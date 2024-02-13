@@ -13,6 +13,9 @@ class Category(ABCDescription):
         Category.__category_amount += 1
         Category.__products_amount += len(self.__products)
 
+    def __str__(self):
+        return f"{self._name}, количество продуктов: {sum([product.count for product in self.__products])} шт."
+
     def get_products(self):
         return self.__products
 
