@@ -14,6 +14,9 @@ class Product(ABCDescription):
     def __str__(self):
         return f"{self.get_name()}, {self.price} руб. Остаток: {self.count} шт."
 
+    def __len__(self):
+        return self.__count
+
     @property
     def price(self):
         return self.__price

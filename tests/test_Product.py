@@ -10,7 +10,7 @@ def some_product():
 def test_getters(some_product):  # actually, this is __init__ parameters, so I made them in one test
     assert some_product.get_name() == 'Box'
     assert some_product.get_desc() == 'This is the Box'
-    assert some_product.count == 5
+    assert some_product.count == len(some_product) == 5
     assert some_product.price == 1.1
 
 

@@ -10,6 +10,10 @@ class ABCDescription(ABC):
     def __str__(self):
         pass
 
+    @abstractmethod
+    def __len__(self):
+        pass
+
     def get_name(self):
         return self._name
 
