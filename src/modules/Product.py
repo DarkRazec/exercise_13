@@ -17,6 +17,9 @@ class Product(ABCDescription):
     def __len__(self):
         return self.__count
 
+    def __add__(self, other: 'Product'):
+        return self.__price * self.__count + other.price * other.count
+
     @property
     def price(self):
         return self.__price

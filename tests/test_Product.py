@@ -45,3 +45,9 @@ def test_make_product():
     assert prod.get_name() == 'NOTBox'
     prod.make_product('NOTBox', 'This is NOT the Box', 2, 3)
     assert prod.price, prod.count == (2, 7)
+
+
+def test_add():
+    prod_1 = Product('Box', 'This is the Box', 1.1, 5)
+    prod_2 = Product('NOTBox', 'This is NOT the Box', 0, 4)
+    assert prod_1.__add__(prod_2) == 5.5
