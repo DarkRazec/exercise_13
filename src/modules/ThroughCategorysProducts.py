@@ -2,6 +2,7 @@ from src.modules.Category import Category
 
 
 class ThroughCategorysProducts:
+    """Класс для прохода по всем товарам класса категории"""
     def __init__(self, category: Category):
         self.products = category.get_products()
         self.stop = len(self.products)
