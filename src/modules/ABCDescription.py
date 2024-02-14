@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class ABCDescription(ABC):
+    """Абстрактный класс для класса Category и Product"""
     def __init__(self, name, desc):
         self._name = name
         self._desc = desc
