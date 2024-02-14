@@ -9,6 +9,7 @@ def test_getters():
     assert food.get_desc() == 'This is Food.'
     assert food.get_products()[0].get_name() == 'NOTNOTBox'
     assert food.products == ['NOTNOTBox, 0 руб. Остаток: 0 шт.']
+    assert len(food) == 0
 
 
 def test_products_amount():

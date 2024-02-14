@@ -13,6 +13,12 @@ class Category(ABCDescription):
         Category.__category_amount += 1
         Category.__products_amount += len(self.__products)
 
+    def __str__(self):
+        return f"{self._name}, количество продуктов: {self.__len__()} шт."
+
+    def __len__(self):
+        return sum([product.count for product in self.__products])
+
     def get_products(self):
         return self.__products
 
@@ -26,8 +32,7 @@ class Category(ABCDescription):
 
     @property
     def products(self):
-        return [f"{product.get_name()}, {product.price} руб. Остаток: {product.count} шт." for product in
-                self.__products]
+        return [f"{product.__str__()}" for product in self.__products]
 
     def add_products(self, new_product):
         for product in self.__products:

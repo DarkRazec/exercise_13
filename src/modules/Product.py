@@ -11,6 +11,15 @@ class Product(ABCDescription):
         self.__count = count
         Product.__instances.append(self)
 
+    def __str__(self):
+        return f"{self.get_name()}, {self.price} руб. Остаток: {self.count} шт."
+
+    def __len__(self):
+        return self.__count
+
+    def __add__(self, other: 'Product'):
+        return self.__price * self.__count + other.price * other.count
+
     @property
     def price(self):
         return self.__price
