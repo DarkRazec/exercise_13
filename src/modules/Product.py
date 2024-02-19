@@ -5,10 +5,11 @@ class Product(ABCDescription):
     """Класс для абстракции 'Продукт'"""
     __instances = []
 
-    def __init__(self, name: str, desc: str, price: float, count: int):
+    def __init__(self, name: str, desc: str, price: float, count: int, color: str = None):
         super().__init__(name, desc)
         self.__price = price
         self.__count = count
+        self.__color = color
         Product.__instances.append(self)
 
     def __str__(self):
@@ -18,7 +19,11 @@ class Product(ABCDescription):
         return self.__count
 
     def __add__(self, other: 'Product'):
-        return self.__price * self.__count + other.price * other.count
+        if isinstance(other, Product) or issubclass(type(other), Product):
+            if isinstance(other, type(self)):
+                return self.__price * self.__count + other.price * other.count
+            raise TypeError('Складывать экземпляры родительского и дочернего класса нельзя')
+        raise TypeError('Переданный параметр не является объектом класса "Product" и не наследуется от него')
 
     @property
     def price(self):
