@@ -1,4 +1,5 @@
 from src.modules.ABCDescription import ABCDescription
+from src.modules.Product import Product
 
 
 class Category(ABCDescription):
@@ -6,7 +7,7 @@ class Category(ABCDescription):
     __category_amount = 0
     __products_amount = 0
 
-    def __init__(self, name: str, desc: str, products: list):
+    def __init__(self, name: str, desc: str, products: list[Product]):
         super().__init__(name, desc)
         self.__products = products
 
@@ -34,14 +35,17 @@ class Category(ABCDescription):
     def products(self):
         return [f"{product.__str__()}" for product in self.__products]
 
-    def add_products(self, new_product):
-        for product in self.__products:
-            if new_product.get_name().lower() == product.get_name().lower():
-                product.count += new_product.count
-                user_input = input('Сменить цену товара на новую? (Y/n) ')
-                if user_input.lower() in ('y', 'yes', 'да'):
-                    product.price = new_product.price
-                break
+    def __add__(self, other):
+        if isinstance(other, Product) or issubclass(type(other), Product):
+            for product in self.__products:
+                if other.get_name().lower() == product.get_name().lower():
+                    product.count += other.count
+                    user_input = input('Сменить цену товара на новую? (Y/n) ')
+                    if user_input.lower() in ('y', 'yes', 'да'):
+                        product.price = other.price
+                    break
+            else:
+                self.__products.append(other)
+                Category.__products_amount += 1
         else:
-            self.__products.append(new_product)
-            Category.__products_amount += 1
+            raise TypeError('Переданный параметр не является объектом класса "Product" или его дочернего класса')
