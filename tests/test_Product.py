@@ -1,5 +1,7 @@
 import pytest
 from src.modules.Product import Product
+from src.modules.SmartPhone import SmartPhone
+from src.modules.Grass import Grass
 
 
 @pytest.fixture
@@ -51,3 +53,9 @@ def test_add():
     prod_1 = Product('Box', 'This is the Box', 1.1, 5)
     prod_2 = Product('NOTBox', 'This is NOT the Box', 0, 4)
     assert prod_1.__add__(prod_2) == 5.5
+    phone_1 = SmartPhone('', '', 1.5, 1, '', 2.0, '', 1.5)
+    phone_2 = SmartPhone('', '', 2.0, 2, '', 2.0, '', 1.5)
+    grass = Grass('', '', 2.0, 2, '', '', 1)
+    assert phone_1 + phone_2 == 5.5
+    with pytest.raises(TypeError):
+        assert grass + phone_1
