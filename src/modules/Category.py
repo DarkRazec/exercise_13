@@ -4,6 +4,7 @@ from src.modules.Product import Product
 
 class Category(ABCDescription):
     """Класс для абстракции 'Категория'"""
+    products: list[Product]
     __category_amount = 0
     __products_amount = 0
 
@@ -14,28 +15,31 @@ class Category(ABCDescription):
         Category.__category_amount += 1
         Category.__products_amount += len(self.__products)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self._name}, количество продуктов: {self.__len__()} шт."
 
-    def __len__(self):
+    def __len__(self) -> int:
         return sum([product.count for product in self.__products])
 
-    def get_products(self):
+    def get_products(self) -> list:
+        """Возвращает значение поля 'products'"""
         return self.__products
 
     @classmethod
-    def get_products_amount(cls):
+    def get_products_amount(cls) -> int:
+        """Возвращает значение поля 'products_amount'"""
         return cls.__products_amount
 
     @classmethod
-    def get_category_amount(cls):
+    def get_category_amount(cls) -> int:
+        """Возвращает значение поля 'category_amount'"""
         return cls.__category_amount
 
     @property
-    def products(self):
+    def products(self) -> list[str]:
         return [f"{product.__str__()}" for product in self.__products]
 
-    def __add__(self, other):
+    def __add__(self, other) -> None:
         if isinstance(other, Product) or issubclass(type(other), Product):
             for product in self.__products:
                 if other.get_name().lower() == product.get_name().lower():

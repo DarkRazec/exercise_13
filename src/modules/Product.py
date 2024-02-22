@@ -3,6 +3,9 @@ from src.modules.ABCDescription import ABCDescription
 
 class Product(ABCDescription):
     """Класс для абстракции 'Продукт'"""
+    price: float
+    count: int
+    color: str
     __instances = []
 
     def __init__(self, name: str, desc: str, price: float, count: int, color: str = None):
@@ -12,13 +15,13 @@ class Product(ABCDescription):
         self.__color = color
         Product.__instances.append(self)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.get_name()}, {self.price} руб. Остаток: {self.count} шт."
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.__count
 
-    def __add__(self, other):
+    def __add__(self, other) -> float:
         if isinstance(other, Product) or issubclass(type(other), Product):
             if isinstance(other, type(self)):
                 return self.__price * self.__count + other.price * other.count
@@ -57,6 +60,8 @@ class Product(ABCDescription):
 
     @classmethod
     def make_product(cls, name: str, desc: str, price: float, count: int):
+        """Утилита создающая новый объект класса 'Product'. Если созданный объект уже существует,
+         добавляет введенное число продуктов. Меняет цену, если та повысилась"""
         for instance in cls.__instances:
             if name.lower() == instance.get_name().lower():
                 instance.__count += count
