@@ -1,7 +1,7 @@
-from src.modules.Product import Product
+from src.modules.AbstractProduct import AbstractProduct
 
 
-class Grass(Product):
+class Grass(AbstractProduct):
     """Класс для абстракции 'Газонная трава'"""
     made_in: str
     germination: int
@@ -10,3 +10,6 @@ class Grass(Product):
         super().__init__(name, desc, price, count, color)
         self.__made_in = made_in
         self.__germination = germination
+
+    def __str__(self):
+        return f"Газонная трава {self._name}, ценой {self._price} руб. Остаток: {self._count} шт."

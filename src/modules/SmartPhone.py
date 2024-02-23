@@ -1,7 +1,7 @@
-from src.modules.Product import Product
+from src.modules.AbstractProduct import AbstractProduct
 
 
-class SmartPhone(Product):
+class SmartPhone(AbstractProduct):
     """Класс для абстракции 'Смартфон'"""
     performance: float
     model: str
@@ -12,3 +12,6 @@ class SmartPhone(Product):
         self.__performance = performance
         self.__model = model
         self.__memory = memory
+
+    def __str__(self):
+        return f"Смартфон {self._name}, ценой {self._price} руб. Остаток: {self._count} шт."
