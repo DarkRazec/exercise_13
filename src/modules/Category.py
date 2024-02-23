@@ -1,8 +1,8 @@
-from src.modules.ABCDescription import ABCDescription
+from src.modules.AbstractDescription import AbstractDescription
 from src.modules.Product import Product
 
 
-class Category(ABCDescription):
+class Category(AbstractDescription):
     """Класс для абстракции 'Категория'"""
     products: list[Product]
     __category_amount = 0
