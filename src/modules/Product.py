@@ -1,7 +1,7 @@
-from src.modules.ABCDescription import ABCDescription
+from src.modules.AbstractDescription import AbstractDescription
 
 
-class Product(ABCDescription):
+class Product(AbstractDescription):
     """Класс для абстракции 'Продукт'"""
     price: float
     count: int
@@ -26,7 +26,7 @@ class Product(ABCDescription):
             if isinstance(other, type(self)):
                 return self.__price * self.__count + other.price * other.count
             raise TypeError('Складывать экземпляры разных классов (включая дочернии) нельзя')
-        raise TypeError('Переданный параметр не является объектом класса "Product" или его дочернего класса')
+        raise TypeError('Переданный аргумент не является объектом "продуктового" класса и не наследуется от него')
 
     @property
     def price(self):
@@ -61,7 +61,7 @@ class Product(ABCDescription):
     @classmethod
     def make_product(cls, name: str, desc: str, price: float, count: int):
         """Утилита создающая новый объект класса 'Product'. Если созданный объект уже существует,
-         добавляет введенное число продуктов. Меняет цену, если та повысилась"""
+         добавляет введенное число продуктов и не возвращает новый объект. Меняет цену, если та повысилась"""
         for instance in cls.__instances:
             if name.lower() == instance.get_name().lower():
                 instance.__count += count
