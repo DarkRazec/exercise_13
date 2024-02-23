@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
+from src.modules.MixinRepr import MixinRepr
 
 
-class ABCDescription(ABC):
-    """Абстрактный класс для класса Category и Product"""
+class AbstractDescription(MixinRepr, ABC):
+    """Абстрактный класс для классов Category и AsbtractProduct"""
     name: str
     desc: str
 
