@@ -1,8 +1,9 @@
 from src.modules.Product import Product
 from src.modules.AbstractProduct import AbstractProduct
+from src.modules.MixinRepr import MixinRepr
 
 
-class SmartPhone(Product, AbstractProduct):
+class SmartPhone(Product, MixinRepr,  AbstractProduct):
     """Класс для абстракции 'Смартфон'"""
     performance: float
     model: str

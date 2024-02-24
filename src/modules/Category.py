@@ -1,8 +1,9 @@
 from src.modules.AbstractDescription import AbstractDescription
 from src.modules.Product import Product
+from src.modules.MixinRepr import MixinRepr
 
 
-class Category(AbstractDescription):
+class Category(AbstractDescription, MixinRepr):
     """Класс для абстракции 'Категория'"""
     __category_amount = 0
     __products_amount = 0

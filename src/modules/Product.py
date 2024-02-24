@@ -1,7 +1,8 @@
 from src.modules.AbstractProduct import AbstractProduct
+from src.modules.MixinRepr import MixinRepr
 
 
-class Product(AbstractProduct):
+class Product(AbstractProduct, MixinRepr):
     """Класс для абстракции 'Продукт'"""
 
     def __init__(self, name: str, desc: str, price: float, count: int, color: str = None):
