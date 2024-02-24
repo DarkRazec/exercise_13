@@ -2,6 +2,7 @@ import pytest
 from src.modules.Product import Product
 from src.modules.SmartPhone import SmartPhone
 from src.modules.Grass import Grass
+from src.modules.Order import Order
 
 
 @pytest.fixture
@@ -59,3 +60,4 @@ def test_add():
     assert phone_1 + phone_2 == 5.5
     with pytest.raises(TypeError):
         assert grass + phone_1
+    assert Order(phone_1, 1).get_cost() == 1.5
