@@ -16,9 +16,9 @@ def test_getters(some_category):
     assert some_category.get_name() == 'Containers'
     assert some_category.get_desc() == 'This is containers. They contain objects inside themselves.'
     assert type(some_category.get_products()) == list
-    assert some_category.get_products_amount() == 2
-    assert some_category.get_categories_amount() == 1
+    assert Category.products_amount == 2
+    assert Category.category_amount == 1
 
 
 def test_categories_amount(some_category_2):
-    assert some_category_2.get_categories_amount() == 2
+    assert Category.category_amount == 2
