@@ -1,19 +1,24 @@
-class Product:
+from src.modules.ABCDescription import ABCDescription
+
+
+class Product(ABCDescription):
     """Класс для абстракции 'Продукт'"""
     __instances = []
 
     def __init__(self, name: str, desc: str, price: float, count: int):
-        self.__name = name
-        self.__desc = desc
+        super().__init__(name, desc)
         self.__price = price
         self.__count = count
         Product.__instances.append(self)
 
-    def get_name(self):
-        return self.__name
+    def __str__(self):
+        return f"{self.get_name()}, {self.price} руб. Остаток: {self.count} шт."
 
-    def get_desc(self):
-        return self.__desc
+    def __len__(self):
+        return self.__count
+
+    def __add__(self, other: 'Product'):
+        return self.__price * self.__count + other.price * other.count
 
     @property
     def price(self):
@@ -48,7 +53,7 @@ class Product:
     @classmethod
     def make_product(cls, name: str, desc: str, price: float, count: int):
         for instance in cls.__instances:
-            if name.lower() == instance.__name.lower():
+            if name.lower() == instance.get_name().lower():
                 instance.__count += count
                 if price > instance.price:
                     instance.__price = price

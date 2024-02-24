@@ -1,21 +1,23 @@
-class Category:
+from src.modules.ABCDescription import ABCDescription
+
+
+class Category(ABCDescription):
     """Класс для абстракции 'Категория'"""
     __category_amount = 0
     __products_amount = 0
 
     def __init__(self, name: str, desc: str, products: list):
-        self.__name = name
-        self.__desc = desc
+        super().__init__(name, desc)
         self.__products = products
 
         Category.__category_amount += 1
         Category.__products_amount += len(self.__products)
 
-    def get_name(self):
-        return self.__name
+    def __str__(self):
+        return f"{self._name}, количество продуктов: {self.__len__()} шт."
 
-    def get_desc(self):
-        return self.__desc
+    def __len__(self):
+        return sum([product.count for product in self.__products])
 
     def get_products(self):
         return self.__products
@@ -30,7 +32,7 @@ class Category:
 
     @property
     def products(self):
-        return [f"{product.get_name()}, {product.price} руб. Остаток: {product.count} шт." for product in self.__products]
+        return [f"{product.__str__()}" for product in self.__products]
 
     def add_products(self, new_product):
         for product in self.__products:
