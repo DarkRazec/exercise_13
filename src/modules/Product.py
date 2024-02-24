@@ -1,7 +1,7 @@
-from src.modules.ABCDescription import ABCDescription
+from src.modules.AbstractDescription import AbstractDescription
 
 
-class Product(ABCDescription):
+class Product(AbstractDescription):
     """Класс для абстракции 'Продукт'"""
     __instances = []
 

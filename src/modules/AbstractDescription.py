@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class ABCDescription(ABC):
+class AbstractDescription(ABC):
     """Абстрактный класс для класса Category и Product"""
     def __init__(self, name, desc):
         self._name = name
