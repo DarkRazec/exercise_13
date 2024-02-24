@@ -4,6 +4,9 @@ from abc import abstractmethod
 
 class AbstractProduct(AbstractDescription):
     """Абстрактный класс для всех 'продуктовых' классов"""
+    price: float
+    count: int
+    color: str
     __instances = []
 
     def __init__(self, name: str, desc: str, price: float, count: int, color: str = None):
@@ -21,6 +24,7 @@ class AbstractProduct(AbstractDescription):
         return self._count
 
     def __add__(self, other):
+        """Складывает два экземпляра одного класса по формуле (цена * количество + цена * количество)"""
         if isinstance(other, type(self)):
             return self._price * self._count + other.price * other.count
         raise TypeError('Складывать экземпляры разных классов (включая дочернии) нельзя')
@@ -57,6 +61,7 @@ class AbstractProduct(AbstractDescription):
 
     @classmethod
     def make_product(cls, name: str, desc: str, price: float, count: int):
+        """Утилита, создающая новый объект класса Product"""
         for instance in cls.__instances:
             if name.lower() == instance.get_name().lower():
                 instance.count += count

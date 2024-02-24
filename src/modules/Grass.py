@@ -3,7 +3,7 @@ from src.modules.Product import Product
 from src.modules.MixinRepr import MixinRepr
 
 
-class Grass(Product, MixinRepr,  AbstractProduct):
+class Grass(Product,  AbstractProduct, MixinRepr):
     """Класс для абстракции 'Газонная трава'"""
     made_in: str
     germination: int

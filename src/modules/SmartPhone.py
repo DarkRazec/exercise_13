@@ -3,7 +3,7 @@ from src.modules.AbstractProduct import AbstractProduct
 from src.modules.MixinRepr import MixinRepr
 
 
-class SmartPhone(Product, MixinRepr,  AbstractProduct):
+class SmartPhone(Product, AbstractProduct, MixinRepr):
     """Класс для абстракции 'Смартфон'"""
     performance: float
     model: str

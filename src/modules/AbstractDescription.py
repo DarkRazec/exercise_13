@@ -2,8 +2,11 @@ from abc import ABC, abstractmethod
 
 
 class AbstractDescription(ABC):
-    """Абстрактный класс для класса Category и Product"""
-    def __init__(self, name, desc):
+    """Абстрактный класс для класса 'Category' и 'Product'"""
+    name: str
+    desc: str
+
+    def __init__(self, name: str, desc: str):
         self._name = name
         self._desc = desc
 
@@ -16,7 +19,9 @@ class AbstractDescription(ABC):
         pass
 
     def get_name(self):
+        """Возвращает значение поля _name"""
         return self._name
 
     def get_desc(self):
+        """Возвращает значение поля _desc"""
         return self._desc

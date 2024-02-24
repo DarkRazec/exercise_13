@@ -1,5 +1,5 @@
 from src.modules.AbstractDescription import AbstractDescription
-from src.modules.Product import Product
+from src.modules.AbstractProduct import AbstractProduct
 from src.modules.MixinRepr import MixinRepr
 
 
@@ -7,8 +7,9 @@ class Category(AbstractDescription, MixinRepr):
     """Класс для абстракции 'Категория'"""
     __category_amount = 0
     __products_amount = 0
+    products: list[AbstractProduct]
 
-    def __init__(self, name: str, desc: str, products: list[Product]):
+    def __init__(self, name: str, desc: str, products: list[AbstractProduct]):
         super().__init__(name, desc)
         self.__products = products
 
@@ -19,25 +20,31 @@ class Category(AbstractDescription, MixinRepr):
         return f"{self._name}, количество продуктов: {self.__len__()} шт."
 
     def __len__(self):
+        """Возвращает общее число товаров в списке"""
         return sum([product.count for product in self.__products])
 
     def get_products(self):
+        """Возвращает значение поля __products"""
         return self.__products
 
     @classmethod
     def get_products_amount(cls):
+        """Возвращает значение поля __products_amount"""
         return cls.__products_amount
 
     @classmethod
     def get_category_amount(cls):
+        """Возвращает значение поля __category_amount"""
         return cls.__category_amount
 
     @property
     def products(self):
         return [f"{product.__str__()}" for product in self.__products]
 
-    def __add__(self, other):
-        if isinstance(other, Product) or issubclass(type(other), Product):
+    def __add__(self, other: AbstractProduct):
+        """Добавляет объект продуктового класса в __products. Если такой уже есть в списке, то добавляет введенное
+        количество товара к уже существующему и спрашивает у пользователя, изменить ли цену на товар."""
+        if isinstance(other, AbstractProduct):
             for product in self.__products:
                 if other.get_name().lower() == product.get_name().lower():
                     product.count += other.count
@@ -49,4 +56,4 @@ class Category(AbstractDescription, MixinRepr):
                 self.__products.append(other)
                 Category.__products_amount += 1
         else:
-            raise TypeError('Переданный параметр не является объектом класса "Product" или его дочернего класса')
+            raise TypeError('Переданный аргумент не является объектом "продуктового" класса или его наследником')
