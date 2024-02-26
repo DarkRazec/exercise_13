@@ -45,16 +45,19 @@ class Category(AbstractDescription, MixinRepr):
         """Добавляет объект продуктового класса в __products. Если такой уже есть в списке, то добавляет введенное
         количество товара к уже существующему и спрашивает у пользователя, изменить ли цену на товар."""
         if isinstance(other, AbstractProduct):
-            for product in self.__products:
-                if other.get_name().lower() == product.get_name().lower():
-                    product.count += other.count
-                    user_input = input('Сменить цену товара на новую? (Y/n) ')
-                    if user_input.lower() in ('y', 'yes', 'да'):
-                        product.price = other.price
-                    break
+            if other.count > 0:
+                for product in self.__products:
+                    if other.get_name().lower() == product.get_name().lower():
+                        product.count += other.count
+                        user_input = input('Сменить цену товара на новую? (Y/n) ')
+                        if user_input.lower() in ('y', 'yes', 'да'):
+                            product.price = other.price
+                        break
+                else:
+                    self.__products.append(other)
+                    Category.__products_amount += 1
             else:
-                self.__products.append(other)
-                Category.__products_amount += 1
+                raise ValueError('Количество товаров переданного аргумента должно быть больше 0')
         else:
             raise TypeError('Переданный аргумент не является объектом "продуктового" класса или его наследником')
 
