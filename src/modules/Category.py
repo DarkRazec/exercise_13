@@ -57,3 +57,10 @@ class Category(AbstractDescription, MixinRepr):
                 Category.__products_amount += 1
         else:
             raise TypeError('Переданный аргумент не является объектом "продуктового" класса или его наследником')
+
+    def avg_price(self):
+        """Возвращает среднее арифметическое цены на все продукты категории"""
+        try:
+            return sum([product.price for product in self.__products])/len(self)
+        except ZeroDivisionError:
+            return 0
