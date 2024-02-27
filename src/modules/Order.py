@@ -1,4 +1,6 @@
 from src.modules.AbstractProduct import AbstractProduct
+from src.modules.ProductException import ProductNullCountException
+from src.modules.Product import Product
 
 
 class Order:
@@ -7,8 +9,14 @@ class Order:
     count: int
 
     def __init__(self, product: AbstractProduct, count: int):
-        self.__product = product
-        self.__count = count
+        if product.count > 0:
+            self.__product = product
+        else:
+            raise ProductNullCountException
+        if count > 0:
+            self.__count = count
+        else:
+            raise ValueError('Количество товаров в заказе должно быть больше 0')
         self.__cost = count * product.price
 
     def get_count(self):

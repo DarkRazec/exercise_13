@@ -1,6 +1,7 @@
 from src.modules.AbstractDescription import AbstractDescription
 from src.modules.AbstractProduct import AbstractProduct
 from src.modules.MixinRepr import MixinRepr
+from src.modules.ProductException import ProductNullCountException
 
 
 class Category(AbstractDescription, MixinRepr):
@@ -45,15 +46,31 @@ class Category(AbstractDescription, MixinRepr):
         """Добавляет объект продуктового класса в __products. Если такой уже есть в списке, то добавляет введенное
         количество товара к уже существующему и спрашивает у пользователя, изменить ли цену на товар."""
         if isinstance(other, AbstractProduct):
-            for product in self.__products:
-                if other.get_name().lower() == product.get_name().lower():
-                    product.count += other.count
-                    user_input = input('Сменить цену товара на новую? (Y/n) ')
-                    if user_input.lower() in ('y', 'yes', 'да'):
-                        product.price = other.price
-                    break
-            else:
-                self.__products.append(other)
-                Category.__products_amount += 1
+            try:
+                for product in self.__products:
+                    if other.get_name().lower() == product.get_name().lower():
+                        product.count += other.count
+                        user_input = input('Сменить цену товара на новую? (Y/n) ')
+                        if user_input.lower() in ('y', 'yes', 'да'):
+                            product.price = other.price
+                        break
+                else:
+                    if other.count > 0:
+                        self.__products.append(other)
+                        Category.__products_amount += 1
+                        print('Продукт добавлен в список категории')
+                    else:
+                        raise ProductNullCountException
+            except ProductNullCountException as e:
+                raise e
+            finally:
+                print('Обработка добавления товара завершена')
         else:
             raise TypeError('Переданный аргумент не является объектом "продуктового" класса или его наследником')
+
+    def avg_price(self):
+        """Возвращает среднее арифметическое цены на все продукты категории"""
+        try:
+            return sum([product.price for product in self.__products])/len(self)
+        except ZeroDivisionError:
+            return 0

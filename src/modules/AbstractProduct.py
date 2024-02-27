@@ -1,5 +1,6 @@
 from src.modules.AbstractDescription import AbstractDescription
 from abc import abstractmethod
+from src.modules.ProductException import ProductNullCountException
 
 
 class AbstractProduct(AbstractDescription):
@@ -12,7 +13,7 @@ class AbstractProduct(AbstractDescription):
     def __init__(self, name: str, desc: str, price: float, count: int, color: str = None):
         super().__init__(name, desc)
         self._price = price
-        self._count = count
+        self._count = count if count > 0 else 0
         self._color = color
         AbstractProduct.__instances.append(self)
 
@@ -52,8 +53,11 @@ class AbstractProduct(AbstractDescription):
         return self._count
 
     @count.setter
-    def count(self, new_count: float):
-        self._count = new_count
+    def count(self, new_count: int):
+        if new_count > 0:
+            self._count = new_count
+        else:
+            raise ProductNullCountException
 
     @count.deleter
     def count(self):

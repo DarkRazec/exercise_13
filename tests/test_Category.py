@@ -1,6 +1,7 @@
 import pytest
 from src.modules.Category import Category
 from src.modules.Product import Product
+from src.modules.ProductException import ProductException
 
 
 def test_getters():
@@ -26,6 +27,8 @@ def test_add_products(monkeypatch):
     assert new_cat.products == ['Apple, 0 руб. Остаток: 0 шт.', 'Box, 2 руб. Остаток: 3 шт.']
     with pytest.raises(TypeError):
         assert new_cat + 'TESTING ERROR'
+    with pytest.raises(ProductException):
+        new_cat + Product('TEST_ProductException', 'TEST', 2, 0)
 
 
 def test_categories_amount():
