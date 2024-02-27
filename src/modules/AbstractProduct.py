@@ -53,7 +53,7 @@ class AbstractProduct(AbstractDescription):
         return self._count
 
     @count.setter
-    def count(self, new_count: float):
+    def count(self, new_count: int):
         if new_count > 0:
             self._count = new_count
         else:
