@@ -27,7 +27,7 @@ def test_add_products(monkeypatch):
     assert new_cat.products == ['Apple, 0 руб. Остаток: 0 шт.', 'Box, 2 руб. Остаток: 3 шт.']
     with pytest.raises(TypeError):
         assert new_cat + 'TESTING ERROR'
-    with pytest.raises(ProductException):
+    with pytest.raises(ValueError):
         new_cat + Product('TEST_ProductException', 'TEST', 2, 0)
 
 

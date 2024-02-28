@@ -2,6 +2,7 @@ from src.modules.AbstractDescription import AbstractDescription
 from src.modules.AbstractProduct import AbstractProduct
 from src.modules.MixinRepr import MixinRepr
 from src.modules.ProductException import ProductNullCountException
+from src.modules.Product import Product
 
 
 class Category(AbstractDescription, MixinRepr):
@@ -62,7 +63,7 @@ class Category(AbstractDescription, MixinRepr):
                     else:
                         raise ProductNullCountException
             except ProductNullCountException as e:
-                raise e
+                raise ValueError(e)
             finally:
                 print('Обработка добавления товара завершена')
         else:
